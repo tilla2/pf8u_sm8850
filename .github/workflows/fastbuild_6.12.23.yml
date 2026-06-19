@@ -43,7 +43,7 @@ on:
         type: boolean
         default: 'false'
       bbr_enable:
-        description: "Whether to enable the BBR algorithm (optimizes upload traffic; has little significance for everyday smartphone use and may even have a negative impact; "false" disables it, "true" simply adds the algorithm, and "default" enables the algorithm and sets it as the default)"
+        description: "Whether to enable the BBR algorithm (optimizes upload traffic; has little significance for everyday smartphone use and may even have a negative impact; false disables it, true simply adds the algorithm, and default enables the algorithm and sets it as the default)"
         required: true
         type: choice
         default: 'false'
@@ -52,7 +52,7 @@ on:
           - 'true'
           - 'default'
       droidspaces_enable:
-        description: 'Whether to enable Droidspaces container support (lightweight, full Linux container support; "false" to disable, "standard" to enable container and ntsync support, "extend" to enable additional experimental features)'
+        description: 'Whether to enable Droidspaces container support (lightweight, full Linux container support; false to disable, standard to enable container and ntsync support, extend to enable additional experimental features)'
         required: true
         type: choice
         default: 'false'
