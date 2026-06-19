@@ -1,4 +1,4 @@
-name: 6.12.23 欧加真OKI内核快速构建
+name: 6.12.23 Quick Build of the OGAZHEN OKI Kernel
 
 env:
   TZ: Asia/Shanghai
@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
     inputs:
       ksu_type:
-        description: 'KernelSU分支(ReSukiSU/SukiSU Ultra/KernelSU Next/KSU(原版)/无内置KSU,默认ReSukiSU)'
+        description: 'KernelSU Branch(ReSukiSU/SukiSU Ultra/KernelSU Next/KSU(Original Version)/No built-in KSU,Default ReSukiSU)'
         required: true
         type: choice
         default: 'resukisu'
@@ -23,27 +23,36 @@ on:
           - 'ksu'
           - 'none'
       susfs_enable:
-        description: '是否开启susfs(用于增强隐藏环境挂载功能; 可能轻微增加耗电，上游更新导致不稳定时或不需要可关闭)'
+        description: 'Whether to enable susfs (used to enhance the hidden environment mounting feature; may slightly increase power consumption; can be disabled if upstream updates cause instability or if it is not needed)'
         required: true
         type: boolean
         default: 'true'
       kpm_enable:
-        description: '是否开启kpm(使用KpatchNext独立实现kpm(支持任意KSU/面具环境); 不需要可保持默认关闭)'
+        description: 'Whether to enable kpm (using KpatchNext to implement kpm independently; supports any KSU/mask environment); if not needed, keep it disabled by default)'
         required: true
         type: boolean
         default: 'false'
       lz4_enable:
-        description: '是否安装 lz4 1.10.0+zstd 1.5.7 补丁'
+        description: 'Is the lz4 1.10.0+zstd 1.5.7 patch installed?'
+    e: boolean
+        default: 'true'
+      kpm_enable:
+        description: 'Whether to enable kpm (using KpatchNext to implement kpm independently; supports any KSU/mask environment); if not needed, keep it disabled by default)'
+        required: true
+        type: boolean
+        default: 'false'
+      lz4_enable:
+        description: 'Is the lz4 1.10.0+zstd 1.5.7 patch installed?'
         required: true
         type: boolean
         default: 'true'
       lz4kd_enable:
-        description: '是否安装 LZ4KD 补丁(若已开启lz4+zstd补丁则可不开启)'
+        description: 'Whether to install the LZ4KD patch (if the lz4+zstd patch is already enabled, this one can be left disabled))'
         required: true
         type: boolean
         default: 'false'
       bbr_enable:
-        description: "是否启用bbr算法(优化上行数据,对手机日用无太大意义甚至可能负优化;false关闭,true仅加入算法,default启用算法并设为默认)"
+        description: "Whether to enable the BBR algorithm (optimizes upload traffic; has little significance for everyday smartphone use and may even have a negative impact; "false" disables it, "true" simply adds the algorithm, and "default" enables the algorithm and sets it as the default)"
         required: true
         type: choice
         default: 'false'
@@ -52,7 +61,7 @@ on:
           - 'true'
           - 'default'
       droidspaces_enable:
-        description: '是否启用Droidspaces容器支持(轻量化的完整Linux容器支持;false关闭,standard开启容器+ntsync支持,extend开启更多测试支持项)'
+        description: 'Whether to enable Droidspaces container support (lightweight, full Linux container support; "false" to disable, "standard" to enable container and ntsync support, "extend" to enable additional experimental features)'
         required: true
         type: choice
         default: 'false'
@@ -61,37 +70,37 @@ on:
           - 'standard'
           - 'extend'
       better_net:
-        description: '是否开启网络功能拓展配置(用于为ipset及需要iptables等高级网络功能内核支持的程序提供支持)'
+        description: 'Whether to enable advanced networking configuration (to provide support for ipset and other programs that require kernel support for advanced networking features such as iptables)'
         required: true
         type: boolean
         default: 'false'
       adios_enable:
-        description: '是否启用ADIOS IO调度器支持(提升IO读写性能)'
+        description: 'Enable ADIOS I/O Scheduler Support (to improve I/O read/write performance)'
         required: true
         type: boolean
         default: 'true'
       rekernel_enable:
-        description: '是否启用Re-Kernel支持(与Freezer/NoActive等软件配合, 提升应用冻结能力)'
+        description: 'Enable Re-Kernel support (works with software such as Freezer and NoActive to improve application freezing capabilities)'
         required: true
         type: boolean
         default: 'false'
       baseband_guard:
-        description: '是否开启内核级基带保护(阻止一切对非用户分区的写入，有效防止格机)'
+        description: 'Enable kernel-level baseband protection (blocks all writes to non-user partitions, effectively preventing device flashing)'
         required: true
         type: boolean
         default: 'true'
       ccache_update:
-        description: '更新ccache缓存(将本次编译生成的ccache缓存覆盖至仓库缓存，在更改编译配置、源码或需要刷新缓存时开启)'
+        description: 'Update the ccache cache (overwrite the repository cache with the ccache generated from this build; enable this when you change the build configuration or source code, or when you need to refresh the cache)'
         required: true
         type: boolean
         default: 'false'
       ccache_debug:
-        description: '是否上传 Ccache调试日志(用于调试, 无需要不必开启)'
+        description: 'Whether to upload Ccache debug logs (for debugging purposes; leave this disabled if not needed)'
         required: true
         type: boolean
         default: 'false'
       kernel_suffix:
-        description: '内核后缀(留空默认,开头别加连字符,勿加空格等影响指令运行的保留字符)'
+        description: 'Kernel suffix (leave blank by default; do not start with a hyphen or include spaces or other reserved characters that could affect command execution)'
         required: false
         type: string
         default: ''
