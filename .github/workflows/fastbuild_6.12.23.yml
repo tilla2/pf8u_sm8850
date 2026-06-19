@@ -1,4 +1,4 @@
-name: 6.12.23 Quick Build of the OGAZHEN OKI Kernel
+name: 6.12.23 欧加真OKI内核快速构建
 
 env:
   TZ: Asia/Shanghai
@@ -47,7 +47,7 @@ on:
         type: boolean
         default: 'true'
       lz4kd_enable:
-        description: 'Whether to install the LZ4KD patch (if the lz4+zstd patch is already enabled, this one can be left disabled))'
+        description: 'Whether to install the LZ4KD patch (if the lz4+zstd patch is already enabled, this one can be left disabled)'
         required: true
         type: boolean
         default: 'false'
