@@ -37,16 +37,6 @@ on:
         required: true
         type: boolean
         default: 'true'
-      kpm_enable:
-        description: 'Whether to enable kpm (using KpatchNext to implement kpm independently; supports any KSU/mask environment); if not needed, keep it disabled by default)'
-        required: true
-        type: boolean
-        default: 'false'
-      lz4_enable:
-        description: 'Is the lz4 1.10.0+zstd 1.5.7 patch installed?'
-        required: true
-        type: boolean
-        default: 'true'
       lz4kd_enable:
         description: 'Whether to install the LZ4KD patch (if the lz4+zstd patch is already enabled, this one can be left disabled)'
         required: true
