@@ -70,6 +70,11 @@ on:
         required: true
         type: boolean
         default: 'true'
+      unicode_enable:
+        type: boolean
+        description: 'Enable patch for Unicode invisible code point read bypass vulnerability?'
+        required: true
+        default: false
       rekernel_enable:
         description: 'Enable Re-Kernel support (works with software like Freezer/NoActive to improve app freezing capability)'
         required: true
@@ -521,6 +526,15 @@ jobs:
           cd kernel_workspace
           echo "CONFIG_MQ_IOSCHED_ADIOS=y" >> ./common/arch/arm64/configs/gki_defconfig
           echo "CONFIG_MQ_IOSCHED_DEFAULT_ADIOS=y" >> ./common/arch/arm64/configs/gki_defconfig
+
+      - name: Apply UNICODE_BYPASS
+        if: inputs.unicode_enable
+        run: |
+          PATCH_DIR="${GITHUB_WORKSPACE}/kernel_workspace/Action-Build/other_patch"
+          cd kernel_workspace
+            patch -p1 --forward < "${PATCH_DIR}/unicode_bypass_fix_6.1+.patch" || true
+          source $REJ_CHECKER
+          check_rejects .
 
       - name: Enable Re-Kernel support
         if: inputs.rekernel_enable
