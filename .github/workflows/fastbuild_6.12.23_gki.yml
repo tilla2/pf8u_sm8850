@@ -631,6 +631,7 @@ jobs:
           echo "--- Environment time before compilation: $(LD_PRELOAD=$PRELOAD_LIBS date) ---"
           echo "--- Environment file timestamp before compilation: ---"
           LD_PRELOAD=$PRELOAD_LIBS stat ./Makefile
+          
           # 6.12 kernel make compilation core configuration:
           # 1. Remap physical paths (Since 6.12 kernel introduced Rust code, the tool for calculating kernel symbol versions became gendwarfksyms, and gendwarfksyms cannot correctly preprocess absolute paths, so we need to manually remap absolute paths to relative paths, otherwise kernel symbol checksums will be widely incorrect)
           COMMON_REAL_PATH=$(pwd -P)
