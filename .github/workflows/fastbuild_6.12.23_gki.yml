@@ -7,6 +7,7 @@ env:
   SUB_VERSION: '23_gki'
   KERNEL_NAME: 'android16-5-ga8f88ad96df3-ab13929693-4k'
   CCACHE_KEY: ccache-ecsv4-gki-6.12.23
+
 on:
   workflow_dispatch:
     inputs:
