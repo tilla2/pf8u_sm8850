@@ -530,9 +530,9 @@ jobs:
       - name: Apply UNICODE_BYPASS
         if: inputs.unicode_enable
         run: |
-          PATCH_DIR="${GITHUB_WORKSPACE}/kernel_workspace/Action-Build/other_patch"
           cd kernel_workspace
-            patch -p1 --forward < "${PATCH_DIR}/unicode_bypass_fix_6.1+.patch" || true
+            wget https://github.com/$GITHUB_REPOSITORY/raw/refs/heads/$GITHUB_REF_NAME/other_patch/unicode_bypass_fix_6.1+.patch
+            patch -p1 --forward < "$unicode_bypass_fix_6.1+.patch" || true
 
       - name: Enable Re-Kernel support
         if: inputs.rekernel_enable
