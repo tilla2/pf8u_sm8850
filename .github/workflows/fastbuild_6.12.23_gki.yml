@@ -663,6 +663,7 @@ jobs:
           export OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump OBJSIZE=llvm-size STRIP=llvm-strip
           # 5. Run official environment configuration script before compilation
           source "./_setup_env.sh" 2>/dev/null || true
+          
           # Clear unnecessary .NET, Android NDK, Haskell, CodeQL runtime libraries while building the kernel to free up space without blocking subsequent steps
           sudo rm -rf /usr/share/dotnet &
           sudo rm -rf /usr/local/lib/android &
