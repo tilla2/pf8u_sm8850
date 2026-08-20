@@ -11617,3 +11617,25 @@ index bc45594ad2a8..000000000000
 -
 -MODULE_LICENSE("Dual BSD/GPL");
 -MODULE_DESCRIPTION("LZ4 HC compressor");
+diff --git a/fs/f2fs/Makefile b/fs/f2fs/Makefile
+--- a/fs/f2fs/Makefile
++++ b/fs/f2fs/Makefile
+@@ -10,6 +10,3 @@
+ f2fs-$(CONFIG_FS_VERITY) += verity.o
+ f2fs-$(CONFIG_F2FS_FS_COMPRESSION) += compress.o
+ f2fs-$(CONFIG_F2FS_IOSTAT) += iostat.o
+-ifeq ($(CONFIG_F2FS_FS_COMPRESSION_FIXED_OUTPUT),y)
+-f2fs-$(CONFIG_ARM64) += $(addprefix lz4armv8/, lz4accel.o lz4armv8.o)
+-endif
+diff --git a/fs/f2fs/compress.c b/fs/f2fs/compress.c
+index feadfdfad32c..2d1cba5c501b 100755
+--- a/fs/f2fs/compress.c
++++ b/fs/f2fs/compress.c
+@@ -20,7 +20,6 @@
+ #include "segment.h"
+ #include <trace/events/f2fs.h>
+ #if defined(CONFIG_F2FS_FS_COMPRESSION_FIXED_OUTPUT) || defined(__ARCH_HAS_LZ4_ACCELERATOR)
+-#include "lz4armv8/lz4accel.h"
+ #include "f2fs_lz4.h"
+ #endif
+ 

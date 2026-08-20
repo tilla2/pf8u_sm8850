@@ -242,6 +242,12 @@ echo "CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE=y" >> "$DEFCONFIG_FILE"
 #跳过将uapi标准头安装到 usr/include 目录的不必要操作，节省编译时间
 echo "CONFIG_HEADERS_INSTALL=n" >> "$DEFCONFIG_FILE"
 
+# 应用 CVE_2026_43499 修复补丁
+cd common
+wget https://github.com/cctv18/oppo_oplus_realme_sm8850/raw/refs/heads/main/other_patch/cve-2026-43499-rtmutex-6.12.patch
+patch -p1 -F 3 < cve-2026-43499-rtmutex-6.12.patch
+cd ..
+
 # 6.12内核Rust配置
 echo "CONFIG_RUST=y" >> ./common/arch/arm64/configs/gki_defconfig
 echo "CONFIG_ANDROID_BINDER_IPC_RUST=m" >> ./common/arch/arm64/configs/gki_defconfig
@@ -318,6 +324,7 @@ if [[ "$APPLY_DROIDSPACES" == [sSeE] ]]; then
   # 开启 Droidspaces 容器所需内核支持
   echo "CONFIG_PID_NS=y" >> "$DEFCONFIG_FILE"
   echo "CONFIG_IPC_NS=y" >> "$DEFCONFIG_FILE"
+  echo "CONFIG_USER_NS=y" >> "$DEFCONFIG_FILE"
   echo "CONFIG_SYSVIPC=y" >> "$DEFCONFIG_FILE"
   echo "CONFIG_DEVTMPFS=y" >> "$DEFCONFIG_FILE"
   echo "CONFIG_NAMESPACES=y" >> "$DEFCONFIG_FILE"
@@ -345,11 +352,11 @@ if [[ "$APPLY_DROIDSPACES" == [sSeE] ]]; then
     # 开启 systemd-coredump 支持
     echo "CONFIG_STATIC_USERMODEHELPER=n" >> "$DEFCONFIG_FILE"
     # 添加 Lindroid EVDI DRM 驱动
-    echo "CONFIG_DRM_LINDROID_EVDI=y" >> "$DEFCONFIG_FILE"
-    cd common
-    wget https://github.com/cctv18/oppo_oplus_realme_sm8850/raw/refs/heads/main/droidspaces_patch/evdi_drm.patch
-    patch -p1 -F 3 < evdi_drm.patch || true
-    cd ..
+    # echo "CONFIG_DRM_LINDROID_EVDI=y" >> "$DEFCONFIG_FILE"
+    # cd common
+    # wget https://github.com/cctv18/oppo_oplus_realme_sm8850/raw/refs/heads/main/droidspaces_patch/evdi_drm.patch
+    # patch -p1 -F 3 < evdi_drm.patch || true
+    # cd ..
   fi
 fi
 
