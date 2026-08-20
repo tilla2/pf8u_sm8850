@@ -532,7 +532,13 @@ jobs:
         run: |
           cd kernel_workspace
             wget https://github.com/$GITHUB_REPOSITORY/raw/refs/heads/$GITHUB_REF_NAME/other_patch/unicode_bypass_fix_6.1+.patch
-            patch -p1 --forward < unicode_bypass_fix_6.1+.patch || true
+            patch -p1 -d common --forward < unicode_bypass_fix_6.1+.patch || true
+            # Verify: 'ignore_init' was a function the patch DELETES; should be 0 now
+          if grep -qE '^static void ignore_init$$void$$' fs/unicode/mkutf8data.c; then
+            echo "::error::unicode_bypass patch did not apply — ignore_init still present"
+            exit 1
+          fi
+          echo "✅ unicode_bypass patch verified applied"
 
       - name: Enable Re-Kernel support
         if: inputs.rekernel_enable
