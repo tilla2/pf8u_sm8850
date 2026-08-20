@@ -844,7 +844,6 @@ jobs:
         run: |
           cat << 'EOF' > release_notes.md
           ###  Oppo/OnePlus/Realme/Xiaomi ${{ env.KSU_TYPENAME }} sm8850 Universal Kernel | Build Information
-          
           - Kernel version: ${{ env.FULL_VERSION }}
           - Compilation time: ${{ env.TIME_FORM }}
           - Device: Oppo/OnePlus/Realme Snapdragon 8 Elite Gen5 Universal ${{ env.KERNEL_VERSION }}.${{ env.SUB_VERSION }} kernel (based on AOSP official android16-6.12-2025-06 source branch)
