@@ -530,16 +530,37 @@ jobs:
       - name: Apply UNICODE_BYPASS
         if: inputs.unicode_enable
         run: |
-          cd kernel_workspace
-          cd common
-            wget https://github.com/$GITHUB_REPOSITORY/raw/refs/heads/$GITHUB_REF_NAME/other_patch/unicode_bypass_fix_6.1+.patch
-            patch -p1 --forward < unicode_bypass_fix_6.1+.patch || true
-            # Verify: 'ignore_init' was a function the patch DELETES; should be 0 now
-          if grep -qE '^static void ignore_init$$void$$' fs/unicode/mkutf8data.c; then
-            echo "::error::unicode_bypass patch did not apply — ignore_init still present"
+          set -euo pipefail
+          echo "::group::Apply UNICODE_BYPASS patch"
+          cd kernel_workspace/common
+          wget https://github.com/$GITHUB_REPOSITORY/raw/refs/heads/$GITHUB_REF_NAME/other_patch/unicode_bypass_fix_6.1+.patch
+          if ! patch -p1 --forward < unicode_bypass_fix_6.1+.patch; then
+            echo "::error::unicode_bypass patch failed to apply. Rejects:"
+            find ./fs/unicode -name "*.rej" -exec echo "=== {} ===" \; -exec cat {} \; || true
             exit 1
           fi
-          echo "✅ unicode_bypass patch verified applied"
+          echo "Patch applied, verifying all 3 hunks landed..."
+
+          # Hunks #1+#2: ignore_init (function definition + call in main) must be gone
+          if grep -nE 'ignore_init' fs/unicode/mkutf8data.c; then
+            echo "::error::Hunks #1/#2 verification failed: 'ignore_init' still present in fs/unicode/mkutf8data.c"
+            exit 1
+          fi
+          echo "  hunks #1/#2 OK - ignore_init fully removed from mkutf8data.c"
+
+          # Hunk #3: array size in utf8data.c_shipped changed 64256 -> 64080
+          if grep -qE 'utf8data\[64256\]' fs/unicode/utf8data.c_shipped; then
+            echo "::error::Hunk #3 verification failed: pre-patch size utf8data[64256] still present"
+            exit 1
+          fi
+          if ! grep -qE 'utf8data\[64080\]' fs/unicode/utf8data.c_shipped; then
+            echo "::error::Hunk #3 verification failed: post-patch size utf8data[64080] not found"
+            exit 1
+          fi
+          echo "  hunk #3 OK - utf8data.c_shipped array size updated to 64080"
+
+          echo "✅ UNICODE_BYPASS patch verified applied (all 3 hunks)"
+          echo "::endgroup::"
 
       - name: Enable Re-Kernel support
         if: inputs.rekernel_enable
