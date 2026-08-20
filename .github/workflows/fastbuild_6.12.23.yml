@@ -532,7 +532,7 @@ jobs:
         run: |
           cd kernel_workspace
             wget https://github.com/$GITHUB_REPOSITORY/raw/refs/heads/$GITHUB_REF_NAME/other_patch/unicode_bypass_fix_6.1+.patch
-            patch -p1 --forward < "$unicode_bypass_fix_6.1+.patch" || true
+            patch -p1 --forward < unicode_bypass_fix_6.1+.patch || true
 
       - name: Enable Re-Kernel support
         if: inputs.rekernel_enable
