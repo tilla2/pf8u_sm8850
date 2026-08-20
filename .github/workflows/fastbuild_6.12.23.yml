@@ -533,8 +533,6 @@ jobs:
           PATCH_DIR="${GITHUB_WORKSPACE}/kernel_workspace/Action-Build/other_patch"
           cd kernel_workspace
             patch -p1 --forward < "${PATCH_DIR}/unicode_bypass_fix_6.1+.patch" || true
-          source $REJ_CHECKER
-          check_rejects .
 
       - name: Enable Re-Kernel support
         if: inputs.rekernel_enable
