@@ -877,7 +877,6 @@ jobs:
           5. Due to the upstream update of the metamodule feature in KernelSU, the latest version of the KSU manager (including all branches except KernelSU Next) requires a metamodule to mount modules normally. Current metamodules include [meta overlayfs](https://github.com/KernelSU-Modules-Repo/meta-overlayfs), [mountify](https://github.com/backslashxx/mountify), [meta magicmount](https://github.com/7a72/meta-magic_mount/), [meta magicmount rs](https://github.com/Tools-cx-app/meta-magic_mount/), [hybrid mount](https://github.com/YuzakiKokuban/meta-hybrid_mount), etc. If you are using KSU for the first time or have just upgraded from an old KSU manager to the new version, please install a metamodule first so that other modules involving system mounting can run normally;
           6. KernelPatch Next (i.e., KPN) is a KPM implementation independent of KSU, which can run in any KSU/Magisk environment (not applicable to Apatch), and cannot be used together with the built-in kpm function of (Re)SukiSU. Before use, please ensure that your kernel does not have a built-in kpm implementation/patch.
           #### ※※※ Flashing the kernel carries risks. To prevent accidents that may brick your phone, please be sure to back up critical boot partitions like boot using software like [KernelFlasher](https://github.com/capntrips/KernelFlasher) before flashing the kernel! ※※※
-          
           EOF
           
           gh release create "${{ env.TAG_HEAD }}-${{ env.TIME }}" \
