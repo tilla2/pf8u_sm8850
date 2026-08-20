@@ -10,7 +10,7 @@ RESET = "\033[0m"
 
 
 def check_build_time(s: str) -> bool:
-    """允许前两个空格，之后的空格及所有格式字符(Cf)/其他空白标红"""
+    """The first two spaces are permitted; any subsequent spaces and all formatting characters (Cf)/other whitespace are highlighted in red"""
     warn = False
     out = []
     space_count = 0
@@ -34,7 +34,7 @@ def check_build_time(s: str) -> bool:
 
     print("".join(out))
     if warn:
-        print("::warning title=BUILD_TIME Error::检测到自定义构建时间异常符号调用，请注意!")
+        print("::warning title=BUILD_TIME Error::A call to a custom build time exception symbol has been detected. Please take note!")
     return warn
 
 
@@ -50,17 +50,17 @@ def check_suffix(s: str) -> bool:
 
     print("".join(out))
     if warn:
-        print("::warning title=SUFFIX Error::检测到自定义内核后缀异常符号调用，请注意!")
+        print("::warning title=SUFFIX Error::An abnormal symbol call with a custom kernel suffix has been detected. Please be aware!")
 
     if re.search(r"^\d{1,3}\.\d{1,3}\.\d{1,3}|-?android\d{2,3}-", s):
-        print("::warning title=SUFFIX Format Error::检测到自定义内核后缀存在重复或冗余内容调用，请注意!")
+        print("::warning title=SUFFIX Format Error::Please note that duplicate or redundant content calls have been detected in the custom kernel suffix!")
         warn = True
 
     return warn
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Unicode / 格式异常检测")
+    parser = argparse.ArgumentParser(description="Unicode / Format Anomaly Detection")
     parser.add_argument("--mode", choices=["build_time", "suffix"], required=True)
     args = parser.parse_args()
 
