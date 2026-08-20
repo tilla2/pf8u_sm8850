@@ -844,6 +844,7 @@ jobs:
         run: |
           cat << 'EOF' > release_notes.md
           ###  Oppo/OnePlus/Realme/Xiaomi ${{ env.KSU_TYPENAME }} sm8850 Universal Kernel | Build Information
+          
           - Kernel version: ${{ env.FULL_VERSION }}
           - Compilation time: ${{ env.TIME_FORM }}
           - Device: Oppo/OnePlus/Realme Snapdragon 8 Elite Gen5 Universal ${{ env.KERNEL_VERSION }}.${{ env.SUB_VERSION }} kernel (based on AOSP official android16-6.12-2025-06 source branch)
@@ -854,6 +855,7 @@ jobs:
           - LZ4KD support: ${{ github.event.inputs.lz4kd_enable }}
           - Enhanced network features: ${{ github.event.inputs.better_net }}
           - BBR/Brutal and other congestion control algorithm support: ${{ github.event.inputs.bbr_enable }}
+          
           - Droidspaces container support: ${{ github.event.inputs.droidspaces_enable }}
           - ADIOS IO scheduler support: ${{ github.event.inputs.adios_enable }}
           - Re-Kernel support: ${{ github.event.inputs.rekernel_enable }}
@@ -862,9 +864,11 @@ jobs:
           - SukiSU Ultra manager download: [SukiSU-Ultra](https://github.com/SukiSU-Ultra/SukiSU-Ultra/releases)
           - KernelSU Next manager download: [KernelSU-Next](https://github.com/KernelSU-Next/KernelSU-Next/releases)
           - KSU original manager download: [KernelSU](https://github.com/tiann/KernelSU/releases)
+          
           ### ⏫️ Update content:
           - Updated ${{ env.KSU_TYPENAME }} to the latest version (${{ needs.build.outputs.ksuver }})
           - (Reserved)
+          
           ### 📋 Installation Guide
           1. If your phone already has a third-party Recovery (such as TWRP) installed, you can download the corresponding AnyKernel flash package for your device model, enter Recovery mode, flash the package via Recovery, and then reboot the device;
           2. If your phone already has root privileges, you can install [HorizonKernelFlasher](https://github.com/libxzr/HorizonKernelFlasher/releases) on your phone, flash the AnyKernel package in HorizonKernelFlasher, and reboot;
@@ -873,7 +877,9 @@ jobs:
           5. Due to the upstream update of the metamodule feature in KernelSU, the latest version of the KSU manager (including all branches except KernelSU Next) requires a metamodule to mount modules normally. Current metamodules include [meta overlayfs](https://github.com/KernelSU-Modules-Repo/meta-overlayfs), [mountify](https://github.com/backslashxx/mountify), [meta magicmount](https://github.com/7a72/meta-magic_mount/), [meta magicmount rs](https://github.com/Tools-cx-app/meta-magic_mount/), [hybrid mount](https://github.com/YuzakiKokuban/meta-hybrid_mount), etc. If you are using KSU for the first time or have just upgraded from an old KSU manager to the new version, please install a metamodule first so that other modules involving system mounting can run normally;
           6. KernelPatch Next (i.e., KPN) is a KPM implementation independent of KSU, which can run in any KSU/Magisk environment (not applicable to Apatch), and cannot be used together with the built-in kpm function of (Re)SukiSU. Before use, please ensure that your kernel does not have a built-in kpm implementation/patch.
           #### ※※※ Flashing the kernel carries risks. To prevent accidents that may brick your phone, please be sure to back up critical boot partitions like boot using software like [KernelFlasher](https://github.com/capntrips/KernelFlasher) before flashing the kernel! ※※※
+          
           EOF
+          
           gh release create "${{ env.TAG_HEAD }}-${{ env.TIME }}" \
           --repo "${{ github.repository }}" \
           --title "${{ env.TAG_HEAD }}-${{ env.FULL_VERSION }}" \
