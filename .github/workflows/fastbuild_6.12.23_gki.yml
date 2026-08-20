@@ -745,6 +745,7 @@ jobs:
           fi
           zip -r ../$AK3_NAME ./*
           echo "ak3name=$AK3_NAME" >> $GITHUB_OUTPUT
+          
           # Add comments to AK3 (debug information)
           CLEAN_SUB_VERSION="${{ env.SUB_VERSION }}"
           CLEAN_SUB_VERSION="${CLEAN_SUB_VERSION%_mtk}"
