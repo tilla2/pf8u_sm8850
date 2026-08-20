@@ -796,6 +796,7 @@ jobs:
       contents: write
       packages: write
       actions: read
+      
     steps:
       - name: Download ZIP artifact
         uses: actions/download-artifact@v8
