@@ -612,6 +612,7 @@ jobs:
           echo 'export FAKESTAT="'$FAKESTAT'"' >> ld-wrapper
           echo 'export FAKETIME="'$FAKETIME'"' >> ld-wrapper
           echo 'ld.lld "$@"' >> ld-wrapper
+          
           # Test if time hijacking test works properly
           echo "--- [Wrapper Test] Creating generic time hijacking test script ---"
           echo '#!/bin/bash' > test-wrapper.sh
