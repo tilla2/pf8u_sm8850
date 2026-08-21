@@ -888,7 +888,7 @@ jobs:
           - Compilation time: ${{ env.TIME_FORM }}
           - Device: Oppo/OnePlus/Realme Snapdragon 8 Elite Gen5 Universal ${{ env.KERNEL_VERSION }}.${{ env.SUB_VERSION }} kernel (based on AOSP official android16-6.12-2025-06 source branch)
           - KSU branch: ${{ env.KSU_TYPENAME }}
-          - susfs support: ${{ github.event.inputs.susfs_enable }}
+          - SuSFS support: ${{ github.event.inputs.susfs_enable }}
           - KPM support: ${{ github.event.inputs.kpm_enable }}
           - LZ4 support: ${{ github.event.inputs.lz4_enable }}
           - LZ4KD support: ${{ github.event.inputs.lz4kd_enable }}
