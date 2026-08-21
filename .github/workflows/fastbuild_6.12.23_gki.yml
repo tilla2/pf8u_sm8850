@@ -896,6 +896,7 @@ jobs:
           - BBR/Brutal and other congestion control algorithm support: ${{ github.event.inputs.bbr_enable }}
           - Droidspaces container support: ${{ github.event.inputs.droidspaces_enable }}
           - ADIOS IO scheduler support: ${{ github.event.inputs.adios_enable }}
+          - Unicode Bypass patch applied: ${{ github.event.inputs.unicode_enable }}
           - Re-Kernel support: ${{ github.event.inputs.rekernel_enable }}
           - Kernel-level baseband protection support: ${{ github.event.inputs.baseband_guard }}
           - ReSukiSU manager download: [ReSukiSU_CI](https://github.com/cctv18/ReSukiSU_CI/releases)
